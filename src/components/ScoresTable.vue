@@ -24,6 +24,7 @@
 <script>
 
 import { mapState } from 'vuex'
+import ScoreTable from '../models/ScoreTable'
 
 export default{
 
@@ -38,6 +39,19 @@ export default{
         for(let i = 0; i < this.scoresTable.length; i++){
             this.roundsRange = [...this.roundsRange, i]
         }
+
+        let scoreTable = new ScoreTable()
+
+        for(let roundIndex = 0; roundIndex < this.scoresTable.length; roundIndex++){
+            let round = this.scoresTable[roundIndex]
+
+            for(var matchIndex = 0; matchIndex < round.matches.length; matchIndex++){
+                let match = round.matches[matchIndex]
+                scoreTable.addGamePlayed(match)
+            }
+        }
+
+        console.log(scoreTable.getScoreTable())
     },
 
     computed: {
