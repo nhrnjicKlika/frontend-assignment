@@ -1,12 +1,13 @@
 <template>
     <div>
-        <select v-model = 'selectedRound'>
-            <option value="-1"> Select a round </option>
-            <option v-for = 'round in roundsRange' :value="(round)"> {{ (round + 1) }} </option>
-        </select>
-
         <div class = 'row'>
             <div class = 'col-md-3'>
+
+                <select v-model = 'selectedRound'>
+                    <option value="-1"> Select a round </option>
+                    <option v-for = 'round in roundsRange' :value="(round)"> {{ (round + 1) }} </option>
+                </select>
+
                 <div class = 'matches-listing'>
                     <div v-for = 'match in selectedRoundData' class = 'match'>
                         <div>
@@ -127,8 +128,19 @@ export default{
 
 <style>
 
+select{
+    margin: 0 auto;
+    display: block;
+}
+
 .matches-listing{
     padding: 25px;
+}
+
+.match{
+    padding: 10px;
+    border: 1px solid grey;
+    margin-top: 5px;
 }
 
 table{
