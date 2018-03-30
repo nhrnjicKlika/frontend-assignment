@@ -9,7 +9,7 @@
                     <option v-for = 'round in roundsRange' :value="(round)"> {{ (round + 1) }} </option>
                 </select>
 
-                <div class = 'matches-listing'>
+                <div class = 'matches-listing' v-if = 'scoresTableInitial.length > 0'>
                     <p class = 'current-round-hint'> Games played in round {{ selectedRound + 1 }}: </p>
                     <div v-for = 'match in selectedRoundData' class = 'match'>
                         <div>
@@ -79,6 +79,11 @@ export default{
     },
 
     created(){
+
+        if(this.scoresTableInitial.length === 0){
+            this.$router.push('/')
+        }
+
         for(let i = 0; i < this.scoresTableInitial.length; i++){
             this.roundsRange = [...this.roundsRange, i]
         }
