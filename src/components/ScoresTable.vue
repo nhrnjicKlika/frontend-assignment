@@ -45,7 +45,7 @@
                             <td> {{ team.gamesPlayed }} </td>
                             <td> {{ team.wins }} </td>
                             <td> {{ team.draw }} </td>
-                            <td> {{ scoresTableInitial - team.wins - team.draw }} </td>
+                            <td> {{ scoresTableInitial.length - team.wins - team.draw }} </td>
                             <td> {{ team.scoredGoals }} </td>
                             <td> {{ team.recievedGoals }} </td>
                             <td> {{ team.scoredGoals - team.recievedGoals }} </td>
@@ -124,3 +124,15 @@ export default{
 }
 
 </script>
+
+<style>
+
+.matches-listing{
+    padding: 25px;
+}
+
+table{
+    text-align: center;
+}
+
+</style>
