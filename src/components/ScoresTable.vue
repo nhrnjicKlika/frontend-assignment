@@ -10,6 +10,7 @@
                 </select>
 
                 <div class = 'matches-listing'>
+                    <p class = 'current-round-hint'> Games played in round {{ selectedRound + 1 }}: </p>
                     <div v-for = 'match in selectedRoundData' class = 'match'>
                         <div>
                             <span> {{ getTeamData(match, 0).teamName }} </span>
