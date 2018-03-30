@@ -3,6 +3,7 @@
         <div class = 'row'>
             <div class = 'col-md-3'>
 
+                <label> Change round: </label>
                 <select v-model = 'selectedRound'>
                     <option value="-1"> Select a round </option>
                     <option v-for = 'round in roundsRange' :value="(round)"> {{ (round + 1) }} </option>
@@ -24,6 +25,9 @@
             </div>
 
             <div class = 'col-md-9'>
+
+                <p class = 'round-hint'> Showing scores after round: {{ selectedRound + 1 }} </p>
+
                 <table class = 'table table-stripped'>
                     <thead>
                         <tr>
@@ -77,6 +81,8 @@ export default{
         for(let i = 0; i < this.scoresTableInitial.length; i++){
             this.roundsRange = [...this.roundsRange, i]
         }
+
+        this.selectedRound = this.scoresTableInitial.length - 1
     },
 
     computed: {
@@ -97,7 +103,7 @@ export default{
             scoresTableCalculated(){
                 let scoreTable = new ScoreTable()
 
-                for(let roundIndex = 0; roundIndex < this.scoresTableInitial.length; roundIndex++){
+                for(let roundIndex = 0; roundIndex <= this.selectedRound; roundIndex++){
                     let round = this.scoresTableInitial[roundIndex]
 
                     for(var matchIndex = 0; matchIndex < round.matches.length; matchIndex++){
@@ -128,9 +134,8 @@ export default{
 
 <style>
 
-select{
-    margin: 0 auto;
-    display: block;
+label{
+    margin-left: 30px;
 }
 
 .matches-listing{
@@ -145,6 +150,11 @@ select{
 
 table{
     text-align: center;
+}
+
+.round-hint{
+    font-size: 1.3em;
+    padding-left: 10px;
 }
 
 </style>
