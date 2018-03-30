@@ -14,6 +14,7 @@
 
 <script>
 
+import { mapMutations } from 'vuex'
 import validators from '../services/validators'
 
 export default {
@@ -25,6 +26,11 @@ export default {
   },
 
   methods:{
+
+    ...mapMutations([
+      'SET_SCORES_TABLE'
+    ]),
+
     fileChanged(e){
       let file = e.target.files[0]
       let reader = new FileReader()
@@ -44,7 +50,8 @@ export default {
     },
 
     setTables(results){
-      console.log('set data to store', results)
+      this.SET_SCORES_TABLE(results)
+      this.$router.push({name: 'scores-table'})
     }
   }
 }
