@@ -64,10 +64,10 @@ export default class ScoresTable{
     }
 
     getScoreTable(){
-       return this.sortByPoints()
+       return this.sortTable()
     }
 
-    sortByPoints(){
+    sortTable(){
         return this.scoreTable.concat().sort((firstTeam, secondTeam) => {
             let firstTeamPoints = (firstTeam.wins * 3) + firstTeam.draw
             let secondTeamPoints = (secondTeam.wins * 3) + secondTeam.draw
@@ -76,6 +76,10 @@ export default class ScoresTable{
             let secondTeamGoalDifferential = secondTeam.scoredGoals - secondTeam.recievedGoals
 
             if(firstTeamPoints === secondTeamPoints){
+                if(firstTeamGoalDifferential === secondTeamGoalDifferential){
+                    return firstTeam.scoredGoals > secondTeam.scoredGoals ? -1 : 1
+                }
+
                 return firstTeamGoalDifferential > secondTeamGoalDifferential ? -1 : 1
             }
 
