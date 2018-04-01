@@ -6,57 +6,11 @@ export default class ScoresTable{
 
     addGamePlayed(match){
 
-        let teamOne = this.getTeam(match, 0)
-        let teamTwo = this.getTeam(match, 1)
+        let teamOne = this.getTeamData(match, 0)
+        let teamTwo = this.getTeamData(match, 1)
         
-        let teamOneIndex = this.getTeamIndex(teamOne.name)
-        let teamTwoIndex = this.getTeamIndex(teamTwo.name)
-        
-        if(teamOneIndex === -1){
-            this.scoreTable = [...this.scoreTable, {
-                name: teamOne.name,
-                gamesPlayed: 1,
-                wins: teamOne.goals > teamTwo.goals ? 1 : 0,
-                draw: teamOne.goals === teamTwo.goals ? 1 : 0,
-                lostGames: teamOne.goals < teamTwo.goals ? 1 : 0,
-                scoredGoals: teamOne.goals,
-                recievedGoals: teamTwo.goals
-            }]
-        }else{
-            let item = this.scoreTable[teamOneIndex]
-            this.scoreTable[teamOneIndex] = {
-                name: item.name,
-                gamesPlayed: item.gamesPlayed + 1,
-                wins: teamOne.goals > teamTwo.goals ? item.wins + 1 : item.wins,
-                draw: teamOne.goals === teamTwo.goals ? item.draw + 1 : item.draw,
-                lostGames: teamOne.goals < teamTwo.goals ? item.lostGames + 1 : item.lostGames,
-                scoredGoals: item.scoredGoals + teamOne.goals,
-                recievedGoals: item.recievedGoals + teamTwo.goals
-            }
-        }
-
-        if(teamTwoIndex === -1){
-            this.scoreTable = [...this.scoreTable, {
-                name: teamTwo.name,
-                gamesPlayed: 1,
-                wins: teamTwo.goals > teamOne.goals ? 1 : 0,
-                draw: teamOne.goals === teamTwo.goals ? 1 : 0,
-                lostGames: teamTwo.goals < teamOne.goals ? 1 : 0,
-                scoredGoals: teamTwo.goals,
-                recievedGoals: teamOne.goals
-            }]
-        }else{
-            let item = this.scoreTable[teamTwoIndex]
-            this.scoreTable[teamTwoIndex] = {
-                name: item.name,
-                gamesPlayed: item.gamesPlayed + 1,
-                wins: teamTwo.goals > teamOne.goals ? item.wins + 1 : item.wins,
-                draw: teamOne.goals === teamTwo.goals ? item.draw + 1 : item.draw,
-                lostGames: teamTwo.goals < teamOne.goals ? item.lostGames + 1 : item.lostGames,
-                scoredGoals: item.scoredGoals + teamTwo.goals,
-                recievedGoals: item.recievedGoals + teamOne.goals
-            }
-        }
+        this.addOrUpdateTeam(teamOne, teamTwo)
+        this.addOrUpdateTeam(teamTwo, teamOne)
     }
 
     getTeamIndex(name){
@@ -87,10 +41,37 @@ export default class ScoresTable{
         })
     }
 
-    getTeam(match, index){
+    getTeamData(match, index){
         var name = Object.keys(match)[index]
         var goals = match[name]
 
         return{ name, goals }
+    }
+
+    addOrUpdateTeam(teamOne, teamTwo){
+        let teamOneIndex = this.getTeamIndex(teamOne.name)
+
+        if(teamOneIndex === -1){
+            this.scoreTable = [...this.scoreTable, {
+                name: teamOne.name,
+                gamesPlayed: 1,
+                wins: teamOne.goals > teamTwo.goals ? 1 : 0,
+                draw: teamOne.goals === teamTwo.goals ? 1 : 0,
+                lostGames: teamOne.goals < teamTwo.goals ? 1 : 0,
+                scoredGoals: teamOne.goals,
+                recievedGoals: teamTwo.goals
+            }]
+        }else{
+            let item = this.scoreTable[teamOneIndex]
+            this.scoreTable[teamOneIndex] = {
+                name: item.name,
+                gamesPlayed: item.gamesPlayed + 1,
+                wins: teamOne.goals > teamTwo.goals ? item.wins + 1 : item.wins,
+                draw: teamOne.goals === teamTwo.goals ? item.draw + 1 : item.draw,
+                lostGames: teamOne.goals < teamTwo.goals ? item.lostGames + 1 : item.lostGames,
+                scoredGoals: item.scoredGoals + teamOne.goals,
+                recievedGoals: item.recievedGoals + teamTwo.goals
+            }
+        }
     }
 }
